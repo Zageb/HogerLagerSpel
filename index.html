@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Genshin Impact</title>
+</head>
+
+<body">
+    <div class="mainContainer">
+        <div class="iconLeft">
+            <img src="Images/hart.webp">
+            <p id = "lifeScreen", class="livesText">Lives</p>
+        </div>
+
+        <div>
+            <h1>Higher or Lower</h1>
+            <div class = "diceNumber">
+                <img src="Images/frame.webp">
+                <p id = "scoreScreen">#</p>    
+            </div>        
+        </div>
+
+        <div class="iconRight">
+            <img src="Images/coin.webp">
+            <p id = "coinScreen", class="coinsText">Coins</p>
+        </div>
+    </div>
+
+    <div class="controlButtons">
+        <button id = "btnThrow", onclick="throwDice()">Start</button>
+        <button id = "btnHigher", onclick="higher()">Higher</button>
+        <button id = "btnLower", onclick = "lower()">Lower</button>
+    </div>
+
+    <p id="feedbackText", class="feedbackTekst"></p>
+
+    <script src="main.js"></script>
+</body>
+</html>
