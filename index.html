@@ -1,41 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Higher or Lower</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<title>Higher or Lower</title> 
 </head>
 
 <body">
-    <div class="mainContainer">
-        <div class="iconLeft">
-            <img src="Images/hart.webp">
-            <p class="livesText">Lives</p>
-        </div>
-
-        <div>
-            <h1>Higher or Lower</h1>
-            <div class = "diceNumber">
-                <img src="Images/frame.webp">
-                <p id = "scoreScreen"></p>    
-            </div>        
-        </div>
-
-        <div class="iconRight">
-            <img src="Images/coin.webp">
-            <p class="coinsText">Coins</p>
-        </div>
+<div class="mainContainer"> <!--Hier zit alle lives coins en de zwevende titel in-->
+    <div class="iconLeft">
+        <img src="Images/hart.webp">
+        <p class="livesText">Lives</p>
     </div>
 
-    <div class="controlButtons">
-        <button>Start</button>
-        <button>Higher</button>
-        <button>Lower</button>
+    <div>
+        <h1 class="Title">Higher or Lower</h1> <!--titel en nummer van de dice-->
+        <div class = "diceNumber">
+            <img src="Images/frame.webp">
+            <p id = "scoreScreen"></p>   <!--score-->
+        </div>        
     </div>
 
-    <p id="feedbackText", class="feedbackTekst"></p>
+    <div class="iconRight">
+        <img src="Images/coin.webp">
+        <p class="coinsText">Coins</p> <!--coins-->
+    </div>
+</div>
 
-    <script src="main.js"></script>
+<div class="controlButtons"> <!--buttons-->
+    <button>Go</button>
+    <button>Higher</button> 
+    <button>Lower</button>
+</div>
+
+<p class="feedbackTekst"></p> <!--tekst onder-->
+
+<script src="main.js"></script>
 </body>
-</html>
