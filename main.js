@@ -1,12 +1,12 @@
-const lifeScreen = document.getElementById("lifeScreen"); 
-const coinScreen = document.getElementById("coinScreen");
-const scoreScreen = document.getElementById("scoreScreen");
+const lifeScreen = document.querySelector(".livesText");//.getElementById("lifeScreen");
+const coinScreen = document.querySelector(".coinsText");//.getElementById("coinScreen");
+const scoreScreen = document.querySelector("#scoreScreen");//.getElementById("scoreScreen");
 
-const btnThrow = document.getElementById("btnThrow");
-const btnHigher = document.getElementById("btnHigher");
-const btnLower = document.getElementById("btnLower");
+const btnThrow = document.querySelector('.controlButtons button:nth-child(1)');
+const btnHigher = document.querySelector('.controlButtons button:nth-child(2)');
+const btnLower = document.querySelector('.controlButtons button:nth-child(3)');
 
-const feedbackText = document.getElementById("feedbackText");
+const feedbackText = document.querySelector(".feedbackTekst");
 
 let lives, coins;
 let gameStarted = false;    //om te kijken of het de eerste ronde is
@@ -14,90 +14,93 @@ let previousDiceRoll, currentDiceRoll;
 let playerBet;              //checkt of de speler hoger of lager kiest  
 
 
-function updateScreens(){ //Dit update lives en coins
+function updateScreens(){
     lifeScreen.textContent = "Lives: " + lives;
     coinScreen.textContent = "Coins: " + coins;
 }
 
-function Feedback(text){ //witte tekst onderin
+function displayFeedback(text){
     feedbackText.textContent = text;
 }
 
-function Setup(){ //alles resetten per potje
+function init(){
     lives = 3; 
     coins = 0;
     updateScreens();
-    btnThrow.textContent = "Go";
+    btnThrow.textContent = "Start";
+    scoreScreen.textContent = "#";
     btnThrow.disabled = false;
     btnHigher.hidden = true;
     btnLower.hidden = true;
-    Feedback("Press Go to throw first dice");
+    displayFeedback("Press Start to throw fist dice");
 }
 
 
 function diceRandom(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min); //dice random getal geven
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function updateScore(){ //vergelijken of de dicerolls hetzelfde zijn en coins geven/levens eraf halen/game over
+function updateScore(){
     if(previousDiceRoll == currentDiceRoll){
-        Feedback("You rolled the same number 	( º﹃º ), roll again!");
+        displayFeedback("You rolled the same number ¯\\_( ͡° ͜ʖ ͡°)_/¯, roll again!");
     }
     else if((currentDiceRoll > previousDiceRoll) && (playerBet == "higher")){
-        Feedback("You won a coin! (◞థ౪థ)ᴖ roll again!");
+        displayFeedback("You won a coin! :D roll again!");
         coins++;
     }
     else if((currentDiceRoll < previousDiceRoll) && (playerBet == "lower")){
-        Feedback("You won a coin! ✌(-‿-)✌ roll again!");
+        displayFeedback("You won a coin! :) roll again!");
         coins++;
     }
     else{
         console.log(previousDiceRoll + " -> " + currentDiceRoll);
-        Feedback("You lost a life ୧༼ಠ益ಠ╭∩╮༽ roll again!");
+        displayFeedback("You lost a life >:( roll again!");
         lives--;
     }
     updateScreens();
 
-    if(lives <= 0){ //het kijkt of leven niet 0 is zodat je ziet of je hebt verloren of niet
-        alert("It's Over ༼ ༎ຶ ෴ ༎ຶ༽ your score was " + coins);
-        Setup();
+    if(lives <= 0){
+        alert("It's Over :'( your score was " + coins);
+        gameStarted = false;
+        init();
     }
 }
 
-function throwDice(){ //random getal maken en de screens updaten qua lives en score
+
+btnThrow.addEventListener('click', function() {
     currentDiceRoll = diceRandom(1,6);
     scoreScreen.textContent = currentDiceRoll;
     btnThrow.disabled = true;
     
     if(gameStarted == false){   //als het de eerste ronde is, verander de btn text naar throw dice en laat keuzes zien
         btnThrow.textContent = "Throw Dice";
-        btnHigher.hidden = false; //je kan de knop zien nu
-        btnLower.hidden = false; //je kan de knop zien nu
+        btnHigher.hidden = false;
+        btnLower.hidden = false;
         gameStarted = true;
-        Feedback("Choose whether the next roll will be Higher or Lower than the current roll ("+currentDiceRoll+")");
+        displayFeedback("Choose whether the next roll will be Higher or Lower than the current roll ("+currentDiceRoll+")");
     }
     else{
-        updateScore(); //update de score bij tweede diceroll of hoger
+        updateScore();
     }
 
-    previousDiceRoll = currentDiceRoll; //nadat de scores zijn geupdate/of eerste ronde moet de laatste diceroll worden onthouden
-    btnHigher.disabled = false; //je kan de knoppen niet klikken
+    previousDiceRoll = currentDiceRoll; //nadat de scores zijn geupdate (of eerste ronde) moet de laatste diceroll worden onthouden
+    btnHigher.disabled = false;
     btnLower.disabled = false;
-}
+});
 
-function higher(){ //als je higher klikt kan je higher niet meer klikken
+btnHigher.addEventListener('click', function() {
     playerBet = "higher";
     btnThrow.disabled = false;
     btnHigher.disabled = true;
     btnLower.disabled = false;
-}
+});
 
-function lower(){ //als je lower klikt kan je lower niet meer klikken
+btnLower.addEventListener('click', function() {
     playerBet = "lower";
     btnThrow.disabled = false;
     btnHigher.disabled = false;
     btnLower.disabled = true;
-}
+});
 
 
-Setup();
+init();
